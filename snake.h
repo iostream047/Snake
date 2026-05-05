@@ -5,6 +5,7 @@
 #include "pos.h"
 #include "food.h"
 #include "Direction.h"
+#include "glm/vec2.hpp"
 
 class snake{
     private:
