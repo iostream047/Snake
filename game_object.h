@@ -7,7 +7,8 @@
 class game_object{
     private:
     char symbol;
-    std::unordered_set<pos,pos_hash_functor> pos_array;
+    // std::unordered_set<pos,pos_hash_functor> pos_array; //why neded again??
+    //DO NOT USE: sounds like a nightmare, use an array for the gameboard...
 
     public:
     game_object(char c);

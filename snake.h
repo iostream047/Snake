@@ -8,14 +8,14 @@
 
 class snake{
     private:
-    std::vector<pos> pos_list;
+    std::vector<pos> snake_body;
     int speed;//units per second
     void follow_head();
 
     public:
     snake(int head_x, int head_y, int initial_length);
     const std::vector<pos>& get_coordinates();
-    void advance_one_step(Direction dir);
+    // void advance_one_step(Direction dir);
     void consume(food f);
 
 };

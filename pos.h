@@ -26,6 +26,7 @@ class pos{
     friend bool operator==(const pos& current_pos,const pos& other); //non member function with private data access 
 };
 
+// Hash functor for unordered set:
 class pos_hash_functor{
     public:
     std::size_t operator()(const pos& position) const;
