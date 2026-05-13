@@ -2,9 +2,9 @@
 #define GAMEOBJECT_H
 
 #include <unordered_set>
-#include "pos.h"
+// #include "pos.h"
 
-class game_object{
+class GameObject{
     private:
     char symbol;
     // std::unordered_set<pos,pos_hash_functor> pos_array; //why neded again??
