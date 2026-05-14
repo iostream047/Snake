@@ -7,7 +7,7 @@ class SnakeIterator{
     public:
     SnakeIterator(const glm::vec2* circular_buffer,int buffer_size, int head_idx, int snake_length);
     glm::vec2 next();
-    bool end();
+    bool empty();
 
     private:
     const glm::vec2* c_buff; //reassignable, non mutable

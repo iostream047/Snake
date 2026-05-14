@@ -11,11 +11,11 @@ SnakeIterator::SnakeIterator(const glm::vec2* circular_buffer,int buffer_size, i
         //constructor
 }
 
-bool SnakeIterator::end(){
+bool SnakeIterator::empty(){
     return (remaining_count > 0) ? false : true;
 }
 glm::vec2 SnakeIterator::next(){
-    if( end() ){
+    if( empty() ){
         throw std::runtime_error("Cannot acces itarator past end");
     }
     remaining_count --;

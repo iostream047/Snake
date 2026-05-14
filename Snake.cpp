@@ -25,16 +25,16 @@ int Snake::pushBack(glm::vec2 pos){
 }
 
 //getters:
-glm::vec2 Snake::getHeadPos(){
+glm::vec2 Snake::getHeadPos() const{
     return circular_buffer[head_idx];
 }
-glm::vec2 Snake::getTailPos(){
+glm::vec2 Snake::getTailPos() const{
     return circular_buffer[tail_idx];
 }
-int Snake::getSnakeLen(){
+int Snake::getSnakeLen() const{
     return snake_len;
 }
-SnakeIterator Snake::getIterator(){
+SnakeIterator Snake::getIterator() const{
     return SnakeIterator(circular_buffer,buffer_size,head_idx,snake_len);//copy elision
 }
 
@@ -64,4 +64,15 @@ void Snake::changeDirection(Direction d){
         break;
     }
 }
-glm::vec2 moveOnce(); //return prev_tail
+glm::vec2 Snake::moveOnce() {//return prev_tail
+    //move tail:
+    glm::vec2 old_tail_pos = circular_buffer[tail_idx];
+    tail_idx = (tail_idx-1+buffer_size)%buffer_size;
+
+    //move head:
+    int new_head_idx = (head_idx-1+buffer_size)%buffer_size;
+    circular_buffer[new_head_idx] = circular_buffer[head_idx]+direction_offset;
+    head_idx = new_head_idx;
+
+    return old_tail_pos;
+}

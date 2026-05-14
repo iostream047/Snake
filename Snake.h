@@ -14,17 +14,16 @@ class Snake{
     int pushBack(glm::vec2 pos);
 
     //getters:
-    glm::vec2 getHeadPos();
-    glm::vec2 getTailPos();
-    int getSnakeLen();
-    SnakeIterator getIterator();
+    glm::vec2 getHeadPos() const;
+    glm::vec2 getTailPos() const;
+    int getSnakeLen() const;
+    SnakeIterator getIterator() const;
     
 
     //movement:
     void changeDirection(Direction d);
     glm::vec2 moveOnce(); //return prev_tail
     
-
 
     private:
     glm::vec2* circular_buffer;
