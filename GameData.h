@@ -2,10 +2,11 @@
 #define GAMEDATA_H
 
 #include <array>
+#include <vector>
 #include "GameConstants.h"
 #include "BoardCell.h"
 #include "Snake.h"
-#include "food.h"
+#include "Food.h"
 
 class GameData{
     public:
