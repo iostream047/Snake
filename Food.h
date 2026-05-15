@@ -5,11 +5,14 @@
 
 class Food{
     public:
-        Food(int nutrition, glm::vec2 pos);
+        Food(); //default valid but empty initialization
 
         glm::vec2 getPos() const;
         int getNutrition() const;
-        void reposition(); //move random generating machinery here...
+
+
+        Food& setPosition(glm::vec2 pos); // must remember to use
+        Food& setNutrition(int n); //must remember to use
 
     private:
         glm::vec2 pos; 

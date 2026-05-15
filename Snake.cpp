@@ -3,24 +3,18 @@
 #include <stdexcept>
 
 Snake::Snake():
-    circular_buffer(nullptr),
-    direction_offset(0,0),
+    direction_offset{0,-1}, //go left
     head_idx(0),
     tail_idx(0),
     snake_len(0),
-    buffer_size(0)
+    buffer_size(SNAKE_BUFFER_SIZE)
     {
-    //constructor
+    // circular_buffer = new glm::vec2[buffer_size]; //NO need - known at compile time
 }
-Snake::~Snake(){
-    delete [] circular_buffer;
-}
-void Snake::build(int buffer_size){
-    circular_buffer = new glm::vec2[buffer_size];
-}
-int Snake::pushBack(glm::vec2 pos){
-    tail_idx = (tail_idx+1+buffer_size)%buffer_size;
+
+void Snake::pushBack(glm::vec2 pos){
     circular_buffer[tail_idx] = pos;
+    tail_idx = (tail_idx+1+buffer_size)%buffer_size;
     snake_len++;
 }
 

@@ -9,7 +9,8 @@ class GameManager{
     public:
     GameManager();
     void refillFood(Food f);
-    //HOW to EMPTY the last cell of the snake?
+
+    const GameData& viewGameData();
     
 
     private:

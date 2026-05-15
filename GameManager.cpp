@@ -11,14 +11,18 @@ GameManager::GameManager():
     {
         //introduce all componets to the game_board here:
         
-        //snake:
+        //Build snake:
         assert (SNAKE_INITIAL_LENGTH < BOARD_ROWS/2);
-        data.getSnake().buildSnake(SNAKE_INITIAL_LENGTH,BOARD_ROWS,BOARD_COLS);
-        //use Snake::push_back(glm::vec2 pos)
-        //put the snake on the board:
-        for(glm::vec2 node : data.getSnake().viewSnakeBody()){
+        for(int i=0;i<SNAKE_INITIAL_LENGTH;i++){
+            data.getSnake().pushBack(glm::vec2(BOARD_ROWS/2,BOARD_COLS/2+i));
+        }
+
+        //Draw the snake on the board:
+        SnakeIterator s_it = data.getSnake().getIterator();
+        while( !s_it.empty() ){
+            glm::vec2 pos = s_it.next();
             data.getBoard()
-                [static_cast<int>(node.x)] [static_cast<int>(node.y)]
+                [static_cast<int>(pos.x)] [static_cast<int>(pos.y)]
                 .changeState(CellState::SNAKE);
         }
 
@@ -26,11 +30,13 @@ GameManager::GameManager():
 
         //food:
         for(int i=0; i<MAX_FOOD_COUNT; i++){
-            data.getFoodList()[i].setNutritionValue(1).setPosition(generateValidRandomPos());
+            glm::vec2 random_pos = generateValidRandomPos();
+            data.getFoodList()[i].setNutrition(1).setPosition(random_pos);
+            data.getBoard()
+                [static_cast<int>(random_pos.x)] [static_cast<int>(random_pos.y)]
+                .changeState(CellState::FOOD_1);
+            // data.getFoodList()[i].setNutrition(1).setPosition(glm::vec2(BOARD_ROWS/4,BOARD_COLS/4+i));
         }
-
-        
-        
         
     }
 glm::vec2 GameManager::generateValidRandomPos(){
@@ -42,4 +48,8 @@ glm::vec2 GameManager::generateValidRandomPos(){
     }while(data.getBoard()[x_pos][y_pos].getCellState() != CellState::EMPTY);    
     
     return glm::vec2(x_pos,y_pos);
+}
+
+const GameData& GameManager::viewGameData(){
+    return data;
 }

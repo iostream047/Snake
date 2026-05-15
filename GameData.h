@@ -2,11 +2,11 @@
 #define GAMEDATA_H
 
 #include <array>
-#include <vector>
-#include "GameConstants.h"
+#include <optional>
 #include "BoardCell.h"
 #include "Snake.h"
 #include "Food.h"
+#include "GameConstants.h"
 
 class GameData{
     public:
@@ -14,14 +14,14 @@ class GameData{
     std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& getBoard(); //will mutate board
     const std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& viewBoard()const; //will mutate board
     
-    std::array<Food,MAX_FOOD_COUNT>& getFoodList(); //will directly and delete into the vector
+    std::array<Food,MAX_FOOD_COUNT>& getFoodList();
     Snake& getSnake(); //want to be able to mutate through methods
     int getScore() const;
 
     private:
-    std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS> game_board;//allocate memory when constructing
-    std::vector<Food> food_arry; //GameManager initializes this...
-    Snake snake;//declare now, allocate in initialiser list
+    std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS> game_board;//allocate and initialize default here.
+    std::array<Food,MAX_FOOD_COUNT> food_arry; //GameManager sets uasable values.
+    Snake snake;//allocate using compile time values, GameManager adds uasble values.
     int score;
 };
 

@@ -1,6 +1,7 @@
 #include "GameData.h"
 
-GameData::GameData(){
+GameData::GameData():
+    score(0){
         //default construct all members
     }
 
