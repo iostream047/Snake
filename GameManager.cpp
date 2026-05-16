@@ -38,7 +38,8 @@ GameManager::GameManager():
             // data.getFoodList()[i].setNutrition(1).setPosition(glm::vec2(BOARD_ROWS/4,BOARD_COLS/4+i));
         }
         
-    }
+}
+
 glm::vec2 GameManager::generateValidRandomPos(){
     int x_pos;
     int y_pos;
@@ -48,6 +49,10 @@ glm::vec2 GameManager::generateValidRandomPos(){
     }while(data.getBoard()[x_pos][y_pos].getCellState() != CellState::EMPTY);    
     
     return glm::vec2(x_pos,y_pos);
+}
+bool GameManager::gameLogic(){
+    //implement...
+    return false;
 }
 
 const GameData& GameManager::viewGameData(){

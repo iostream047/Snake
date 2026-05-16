@@ -23,28 +23,32 @@ int main(int argc, char * argv[])
     int fps=30;
 
     auto start_time=std::chrono::high_resolution_clock::now();
-    double calculated_fps = 0;
+    double fps_sum = 0;
     int frame_count = 0;
+    double average_fps = 0;
     
     
     while(!game_over){
         auto start_time=std::chrono::high_resolution_clock::now();
 
         input();
-        logic();
+        game_over = game.gameLogic();
         std::stringstream& ss = draw(game,renderer);
         
         // std::this_thread::sleep_for(std::chrono::milliseconds(1000/fps));    
-        // std::chrono::duration<double> time_span= std::chrono::duration_cast<std::chrono::duration<double>>(current_time-start_time);
-        auto delta_time = std::chrono::high_resolution_clock::now()-start_time;
+        std::chrono::nanoseconds delta_time = std::chrono::high_resolution_clock::now()-start_time;
 
-        ss << "fps: " 
-            << calculated_fps /++frame_count 
+        ss << "average fps: " 
+            << average_fps
             << std::endl;
         std::cout << ss.str();
 
-        calculated_fps += 1000000000/ delta_time.count();
-        // exit(0);
+        fps_sum += 1'000'000'000/ delta_time.count();
+        average_fps = fps_sum/++frame_count;
+        if(frame_count > 30*10){
+            exit(0);
+        }
+        
     }
  
     return 0;

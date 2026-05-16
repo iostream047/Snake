@@ -11,6 +11,7 @@ class GameManager{
     void refillFood(Food f);
 
     const GameData& viewGameData();
+    bool gameLogic();
     
 
     private:
