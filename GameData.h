@@ -14,7 +14,7 @@ class GameData{
     std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& getBoard(); //will mutate board
     const std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& viewBoard()const; //will mutate board
     
-    std::array<Food,MAX_FOOD_COUNT>& getFoodList();
+    std::array<Food,MAX_FOOD_COUNT>& getFoodAry();
     Snake& getSnake(); //want to be able to mutate through methods
     int getScore() const;
 

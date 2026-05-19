@@ -11,7 +11,7 @@ std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& GameData::getBoard() {
 const std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& GameData::viewBoard() const{
     return game_board; //return type ensures by reference
 }
-std::array<Food,MAX_FOOD_COUNT>& GameData::getFoodList() {
+std::array<Food,MAX_FOOD_COUNT>& GameData::getFoodAry() {
     return food_arry;
 }
 Snake& GameData::getSnake(){

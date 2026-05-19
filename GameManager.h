@@ -2,6 +2,7 @@
 #define GAMEMANAGER_H
 
 #include <random>
+#include <chrono>
 #include "GameData.h"
 #include "GameVisualizer.h"
 
@@ -11,7 +12,7 @@ class GameManager{
     void refillFood(Food f);
 
     const GameData& viewGameData();
-    bool gameLogic();
+    bool gameTick();
     
 
     private:
@@ -24,6 +25,7 @@ class GameManager{
     std::uniform_int_distribution<> col_dist;
 
     glm::vec2 generateValidRandomPos() ;
+    void repositionFood(glm::vec2 fod_pos);
 };
 
 #endif

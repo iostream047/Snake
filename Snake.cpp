@@ -5,7 +5,7 @@
 Snake::Snake():
     direction_offset{0,-1}, //go left
     head_idx(0),
-    tail_idx(0),
+    tail_idx(SNAKE_BUFFER_SIZE-1),
     snake_len(0),
     buffer_size(SNAKE_BUFFER_SIZE)
     {
@@ -13,8 +13,8 @@ Snake::Snake():
 }
 
 void Snake::pushBack(glm::vec2 pos){
-    circular_buffer[tail_idx] = pos;
     tail_idx = (tail_idx+1+buffer_size)%buffer_size;
+    circular_buffer[tail_idx] = pos;
     snake_len++;
 }
 

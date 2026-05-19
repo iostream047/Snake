@@ -7,4 +7,6 @@ constexpr int SNAKE_BUFFER_SIZE = BOARD_COLS*BOARD_ROWS+5; //5 extra breathing r
 constexpr int SNAKE_INITIAL_LENGTH = 7;
 constexpr int MAX_FOOD_COUNT = 2;
 
+constexpr int TARGET_FRAME_RATE = 1;
+
 #endif

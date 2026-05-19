@@ -28,10 +28,10 @@ GameManager::GameManager():
 
         //no walls yet
 
-        //food:
+        //generate food and draw on board:
         for(int i=0; i<MAX_FOOD_COUNT; i++){
             glm::vec2 random_pos = generateValidRandomPos();
-            data.getFoodList()[i].setNutrition(1).setPosition(random_pos);
+            data.getFoodAry()[i].setNutrition(1).setPosition(random_pos);
             data.getBoard()
                 [static_cast<int>(random_pos.x)] [static_cast<int>(random_pos.y)]
                 .changeState(CellState::FOOD_1);
@@ -50,11 +50,34 @@ glm::vec2 GameManager::generateValidRandomPos(){
     
     return glm::vec2(x_pos,y_pos);
 }
-bool GameManager::gameLogic(){
+bool GameManager::gameTick(){
+    
+    constexpr int target_fps = TARGET_FRAME_RATE;
+    constexpr std::chrono::nanoseconds target_frame_duration = 
+        std::chrono::nanoseconds{1'000'000'000/target_fps};
+
+    
+    // if( time_left < )/
+
+
     //implement...
     return false;
 }
 
 const GameData& GameManager::viewGameData(){
     return data;
+}
+
+void GameManager::repositionFood(glm::vec2 food_pos){
+    bool found = false;
+    auto food_ary = data.getFoodAry();
+    for(std::size_t i=0; i<food_ary.size(); i++ ){
+        if(food_ary[i].getPos() == food_pos){
+            found = true;
+            food_ary[i].setPosition(generateValidRandomPos());
+        }
+    }
+    if(!found){
+        throw std::invalid_argument("Food position provided does not exist");
+    }
 }
