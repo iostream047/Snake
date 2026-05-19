@@ -12,10 +12,11 @@ Snake::Snake():
     // circular_buffer = new glm::vec2[buffer_size]; //NO need - known at compile time
 }
 
-void Snake::pushBack(glm::vec2 pos){
+void Snake::pushBack(glm::vec2 pos, std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& game_board){
     tail_idx = (tail_idx+1+buffer_size)%buffer_size;
     circular_buffer[tail_idx] = pos;
     snake_len++;
+    game_board[static_cast<int>(pos.x)][static_cast<int>(pos.y)].changeState(CellState::SNAKE);
 }
 
 //getters:
@@ -58,15 +59,22 @@ void Snake::changeDirection(Direction d){
         break;
     }
 }
-glm::vec2 Snake::moveOnce() {//return prev_tail
+glm::vec2 Snake::moveOnce(std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& game_board) {//return prev_tail
     //move tail:
     glm::vec2 old_tail_pos = circular_buffer[tail_idx];
     tail_idx = (tail_idx-1+buffer_size)%buffer_size;
+    game_board
+        [static_cast<int>(old_tail_pos.x)] [static_cast<int>(old_tail_pos.y)]
+        .changeState(CellState::EMPTY);
 
     //move head:
     int new_head_idx = (head_idx-1+buffer_size)%buffer_size;
     circular_buffer[new_head_idx] = circular_buffer[head_idx]+direction_offset;
     head_idx = new_head_idx;
+    game_board
+        [static_cast<int>(circular_buffer[new_head_idx].x)] 
+            [static_cast<int>(circular_buffer[new_head_idx].y)]
+        .changeState(CellState::SNAKE);
 
     return old_tail_pos;
 }

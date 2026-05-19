@@ -1,17 +1,21 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
+#include <array>
+
 #include "glm/vec2.hpp"
 #include "Direction.h"
 #include "SnakeIterator.h"
 #include "GameConstants.h"
+#include "BoardCell.h"
+
 
 class Snake{
     
     public:
     Snake();
     // ~Snake();
-    void pushBack(glm::vec2 pos);
+    void pushBack(glm::vec2 pos, std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& game_board);
 
     //getters:
     glm::vec2 getHeadPos() const;
@@ -22,7 +26,7 @@ class Snake{
 
     //movement:
     void changeDirection(Direction d);
-    glm::vec2 moveOnce(); //return prev_tail
+    glm::vec2 moveOnce(std::array<std::array<BoardCell,BOARD_COLS>,BOARD_ROWS>& game_board); //return prev_tail
     
 
     private:

@@ -14,7 +14,9 @@ GameManager::GameManager():
         //Build snake:
         assert (SNAKE_INITIAL_LENGTH < BOARD_ROWS/2);
         for(int i=0;i<SNAKE_INITIAL_LENGTH;i++){
-            data.getSnake().pushBack(glm::vec2(BOARD_ROWS/2,BOARD_COLS/2+i));
+            data.getSnake().pushBack(
+                glm::vec2(BOARD_ROWS/2,BOARD_COLS/2+i),
+                data.getBoard());
         }
 
         //Draw the snake on the board:
@@ -36,8 +38,7 @@ GameManager::GameManager():
                 [static_cast<int>(random_pos.x)] [static_cast<int>(random_pos.y)]
                 .changeState(CellState::FOOD_1);
             // data.getFoodList()[i].setNutrition(1).setPosition(glm::vec2(BOARD_ROWS/4,BOARD_COLS/4+i));
-        }
-        
+        }        
 }
 
 glm::vec2 GameManager::generateValidRandomPos(){
@@ -56,7 +57,7 @@ bool GameManager::gameTick(){
     // constexpr std::chrono::nanoseconds target_frame_duration = 
     //     std::chrono::nanoseconds{1'000'000'000/target_fps};
     glm::vec2 prev_head_pos = data.getSnake().getHeadPos();
-    glm::vec2 prev_tail_pos = data.getSnake().moveOnce(); //board doesn't know
+    glm::vec2 prev_tail_pos = data.getSnake().moveOnce(data.getBoard()); //board doesn't know
 
 
 
