@@ -25,7 +25,9 @@ class GameManager{
     std::uniform_int_distribution<> col_dist;
 
     glm::vec2 generateValidRandomPos() ;
-    void repositionFood(glm::vec2 fod_pos);
+    Food& repositionFood(glm::vec2 fod_pos);
+    void drawFood(const Food& f);
+    void flipFoodChar(const Food& f);
 };
 
 #endif

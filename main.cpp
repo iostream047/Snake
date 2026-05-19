@@ -57,7 +57,7 @@ int main(int argc, char * argv[])
             << " ms.";
         std::cout << ss.str();
         
-        if(frame_count > 30*10){
+        if(frame_count > 6){//30*10){
             exit(0);
         }
         

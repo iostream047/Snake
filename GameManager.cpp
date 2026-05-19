@@ -52,12 +52,22 @@ glm::vec2 GameManager::generateValidRandomPos(){
 }
 bool GameManager::gameTick(){
     
-    constexpr int target_fps = TARGET_FRAME_RATE;
-    constexpr std::chrono::nanoseconds target_frame_duration = 
-        std::chrono::nanoseconds{1'000'000'000/target_fps};
+    // constexpr int target_fps = TARGET_FRAME_RATE;
+    // constexpr std::chrono::nanoseconds target_frame_duration = 
+    //     std::chrono::nanoseconds{1'000'000'000/target_fps};
+    glm::vec2 prev_head_pos = data.getSnake().getHeadPos();
+    glm::vec2 prev_tail_pos = data.getSnake().moveOnce(); //board doesn't know
 
-    
-    // if( time_left < )/
+
+
+    //handle new head out of board:
+
+
+    //check if food is eaten:
+
+
+
+    //regenerate food, and draw on board
 
 
     //implement...
@@ -68,16 +78,40 @@ const GameData& GameManager::viewGameData(){
     return data;
 }
 
-void GameManager::repositionFood(glm::vec2 food_pos){
+Food& GameManager::repositionFood(glm::vec2 food_pos){
     bool found = false;
+    int food_idx = 0;
     auto food_ary = data.getFoodAry();
     for(std::size_t i=0; i<food_ary.size(); i++ ){
         if(food_ary[i].getPos() == food_pos){
             found = true;
             food_ary[i].setPosition(generateValidRandomPos());
+            food_idx = i;
         }
     }
     if(!found){
         throw std::invalid_argument("Food position provided does not exist");
     }
+    return food_ary[food_idx];
 }
+void GameManager::drawFood(const Food& f){
+    BoardCell& target_cell = data.getBoard()[f.getPos().x][f.getPos().y];
+    assert(target_cell.getCellState() == CellState::EMPTY);
+    target_cell.changeState(CellState::FOOD_1);
+}
+
+    void GameManager::flipFoodChar(const Food& f){
+        BoardCell& target_cell = data.getBoard()[f.getPos().x][f.getPos().y];
+        switch (target_cell.getCellState())
+        {
+        case CellState::FOOD_1:
+            target_cell.changeState(CellState::FOOD_2);
+            break;
+        case CellState::FOOD_2:
+            target_cell.changeState(CellState::FOOD_2);
+            break;
+        default:
+            throw std::invalid_argument("expected food position is not food represnetation");  
+            break;
+        }
+    }
